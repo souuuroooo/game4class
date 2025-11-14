@@ -1,0 +1,15 @@
+get_bg="beach"
+get_char="white"
+get_char_2="white"
+restart=False
+restart_choose=False
+back_from_skill=False
+L_point=0
+R_point=0
+use_broad=False
+who_skilled=""
+clicked=False
+test=1
+init_choose=False
+go_to_skill=""
+temp=2
