@@ -10,6 +10,9 @@ from cogs.skills import Skill
 from cogs.p1_get_char import p1_choose
 from cogs.p2_get_char import p2_choose
 from cogs.select_bg import select_bg
+
+# from cogs.test_start import StartMenu_Test 
+
 import g_var
 
 pygame.init()
@@ -29,7 +32,9 @@ scenes = {
     "p2":p2_choose(),
     "bg":select_bg(),
     "pause":Pause(),
-    "skill":Skill()
+    "skill":Skill(),
+
+    # "start":StartMenu_Test()
 }
 active_scene = "start"
 
