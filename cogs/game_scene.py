@@ -280,7 +280,10 @@ class GameScene:
         for i in range(3):
             self.__dict__[f"vege{i+1}"]=pygame.transform.scale(self.__dict__[f"vege{i+1}"],(150,150))
             # self.__dict__[f"gob_hitbox{i+1}"]["body"].position = self.gob_box_init
-
+        
+        escape=pygame.image.load(os.path.join("cogs","material", "escape.png")).convert_alpha()
+        self.escape=pygame.transform.scale(escape,(720,360))
+        self.escape_pos=self.escape.get_rect(center=(720,200))
         #gif
         self.wuii = []
         for i in range(25):
@@ -320,15 +323,36 @@ class GameScene:
     def update(self, events ,screen):       
         
         keys=pygame.key.get_pressed()
+        if self.skill_active and g_var.who_skilled=="p2pika":
+            a=1
+        else:
+            if keys[pygame.K_d] and self.ball_body.position.x<580:
+                self.ball_body.position = (self.ball_body.position.x+10, self.ball_body.position.y)
+            if keys[pygame.K_a] and self.ball_body.position.x>50:
+                self.ball_body.position = (self.ball_body.position.x-10, self.ball_body.position.y)
+            if keys[pygame.K_w] :
+                if abs(self.ball_body.position.y - (self.floor_y + self.radius)) < 20:
+                    self.ball_body.velocity = (self.ball_body.velocity.x, 700)
+                    self.box_body.velocity=(self.ball_body.velocity.x, 700) 
+                if self.ball_body.velocity.y<100:
+                    self.ball_body.velocity = (self.ball_body.velocity.x,20)
+                    self.box_body.velocity=(self.ball_body.velocity.x, 20)     
+        
 
-        if keys[pygame.K_d] and self.ball_body.position.x<580:
-            self.ball_body.position = (self.ball_body.position.x+10, self.ball_body.position.y)
-        if keys[pygame.K_a] and self.ball_body.position.x>50:
-            self.ball_body.position = (self.ball_body.position.x-10, self.ball_body.position.y)
-        if keys[pygame.K_RIGHT] and self.ball_at_body.position.x<1230:
-            self.ball_at_body.position = (self.ball_at_body.position.x+10, self.ball_at_body.position.y)
-        if keys[pygame.K_LEFT] and self.ball_at_body.position.x>720:
-            self.ball_at_body.position = (self.ball_at_body.position.x-10, self.ball_at_body.position.y)
+        if self.skill_active and g_var.who_skilled=="p1pika":
+            a=1
+        else:
+            if keys[pygame.K_RIGHT] and self.ball_at_body.position.x<1230:
+                self.ball_at_body.position = (self.ball_at_body.position.x+10, self.ball_at_body.position.y)
+            if keys[pygame.K_LEFT] and self.ball_at_body.position.x>720:
+                self.ball_at_body.position = (self.ball_at_body.position.x-10, self.ball_at_body.position.y)
+            if keys[pygame.K_UP] :
+                if abs(self.ball_at_body.position.y - (self.floor_y + self.radius)) < 20:
+                    self.ball_at_body.velocity = (self.ball_at_body.velocity.x, 700)
+                    self.box_at_body.velocity=(self.ball_at_body.velocity.x, 700)
+                if self.ball_at_body.velocity.y<100:
+                        self.ball_at_body.velocity = (self.ball_at_body.velocity.x,20)
+                        self.box_at_body.velocity=(self.ball_at_body.velocity.x, 20)
         
         
         
@@ -341,61 +365,7 @@ class GameScene:
 
                     self.ball_body2.position = (self.start_x2, self.start_y2)
                     self.ball_body2.velocity = (0, 0)
-                    self.ball_body2.angular_velocity = 0
-
-                #p1 move
-                if event.key == pygame.K_w:
-                    if abs(self.ball_body.position.y - (self.floor_y + self.radius)) < 20: #在地上
-                        self.ball_body.velocity = (self.ball_body.velocity.x, 700)
-                        self.box_body.velocity=(self.ball_body.velocity.x, 700)
-                    # if abs(self.ball_body.position.y - 300- self.radius) < 20 :#50是ball的radious 
-                    #     if self.ball_body.position.x>300 and self.ball_body.position.x<500: 
-                    #         self.ball_body.velocity = (self.ball_body.velocity.x, 100)
-                    #         self.box_body.velocity=(self.ball_body.velocity.x, 100)
-                    else :
-                        if self.ball_body.velocity.y<100:
-                            self.ball_body.velocity = (self.ball_body.velocity.x,75)
-                            self.box_body.velocity=(self.ball_body.velocity.x, 75)
-                    
-                if event.key == pygame.K_d:
-                    # self.ball_body.velocity = (125, self.ball_body.velocity.y)
-                    # self.box_body_right.velocity = (125, self.box_body_right.velocity.y)
-                    # self.ball_body.position = (self.ball_body.position.x+20, self.ball_body.position.y)
-                    # self.timer = 120
-                    a=1
-
-                if event.key == pygame.K_a:
-                    # self.ball_body.velocity = (-125, self.ball_body.velocity.y)
-                    # self.box_body_left.velocity = (-125, self.box_body_left.velocity.y)
-                    # self.timer = -120
-                    a=1
-                #p1 move end
-                #p2 move
-                if event.key == pygame.K_UP:
-                    if abs(self.ball_at_body.position.y - (self.floor_y + self.radius)) < 20: #在地上
-                        self.ball_at_body.velocity = (self.ball_at_body.velocity.x, 700)
-                        self.box_body.velocity=(self.ball_at_body.velocity.x, 700)
-                    # if abs(self.ball_body.position.y - 300- self.radius) < 20 :#50是ball的radious 
-                    #     if self.ball_body.position.x>300 and self.ball_body.position.x<500: 
-                    #         self.ball_body.velocity = (self.ball_body.velocity.x, 100)
-                    #         self.box_body.velocity=(self.ball_body.velocity.x, 100)
-                    else :
-                        if self.ball_at_body.velocity.y<100:
-                            self.ball_at_body.velocity = (self.ball_at_body.velocity.x,75)
-                            self.box_at_body.velocity=(self.ball_at_body.velocity.x, 75)
-                    
-                if event.key == pygame.K_RIGHT:
-                    # self.ball_at_body.velocity = (250, self.ball_at_body.velocity.y)
-                    # self.box_at_body_right.velocity = (250, self.box_at_body_right.velocity.y)
-                    # self.timer_at = 120
-                    a=1
-
-                if event.key == pygame.K_LEFT:
-                    # self.ball_at_body.velocity = (-250, self.ball_at_body.velocity.y)
-                    # self.box_at_body_left.velocity = (-250, self.box_at_body_left.velocity.y)
-                    # self.timer_at = -120
-                    a=1
-                #p2 move end
+                    self.ball_body2.angular_velocity = 0               
 
                 if event.key == pygame.K_ESCAPE:
                     self.init_my_self()
@@ -426,6 +396,13 @@ class GameScene:
                     g_var.use_broad=True
                     g_var.L_point+=1
                     self.change_ball=True
+
+                # end skill
+                if event.key == pygame.K_KP1:
+                    self.skill_timer -=1
+                
+                if event.key == pygame.K_1:
+                    self.skill_timer -=1
 
             
             if self.im_pause.is_clicked(event):
@@ -481,7 +458,7 @@ class GameScene:
         if g_var.back_from_skill:   #平衡性調整技能時長
             if g_var.who_skilled=="p1pika" or g_var.who_skilled=="p2pika":
                 self.skill_active = True
-                self.skill_timer = 240   # give pika 4s to show (60fps) 
+                self.skill_timer = 20  # give pika 4s to show (60fps) 
                 g_var.back_from_skill = False
             elif g_var.who_skilled=="p1cat" or g_var.who_skilled=="p2cat":
                 self.skill_active = True
@@ -495,7 +472,8 @@ class GameScene:
 
         if self.skill_active:
             if g_var.who_skilled=="p1pika" or g_var.who_skilled=="p2pika":
-                self.ball_body2.velocity = (0,0)
+                # self.ball_body2.velocity = (0,0)
+                a=1
             if g_var.who_skilled=="p1cat" or g_var.who_skilled=="p2cat": #neko animate
                 if self.neko_x<360 :
                     self.neko_count+=1
@@ -514,7 +492,8 @@ class GameScene:
         
         #判斷技能要結束沒
         if self.skill_active:
-            self.skill_timer -= 1
+            if g_var.who_skilled=="p1cat" or g_var.who_skilled=="p2cat" or g_var.who_skilled=="p1gob" or g_var.who_skilled=="p2gob":
+                self.skill_timer -= 1
             if self.skill_timer <= 0:
                 self.skill_active = False
                 self.neko_box_body.position = self.neko_box_init                
@@ -864,7 +843,9 @@ class GameScene:
             if g_var.who_skilled=="p1pika" or g_var.who_skilled=="p2pika":
                 overlay = pygame.Surface((self.WIDTH, self.HEIGHT), pygame.SRCALPHA)
                 overlay.fill((255, 255, 0, 100))  # 黃色透明
+                screen.blit(self.escape,self.escape_pos)
                 screen.blit(overlay, (0, 0))
+                
             
             
         
