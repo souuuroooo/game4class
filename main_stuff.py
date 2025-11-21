@@ -3,7 +3,7 @@ import pygame
 from cogs.start_menu import StartMenu
 from cogs.game_scene import GameScene
 # from cogs.game_test import GameScene_test
-# from cogs.char_choose import choose_char
+# from cogs.char_choose imporDWDt choose_char
 from cogs.pause import Pause
 from cogs.skills import Skill
 # from cogs.choose import choose_chaar_2
@@ -11,11 +11,16 @@ from cogs.p1_get_char import p1_choose
 from cogs.p2_get_char import p2_choose
 from cogs.select_bg import select_bg
 
-# from cogs.test_start import StartMenu_Test 
+
+from cogs.credits import Credits
 
 import g_var
 
 pygame.init()
+pygame.mixer.init()
+music=pygame.mixer.Sound("Angel_boring.ogg")
+music.set_volume(0.3)
+music.play(loops=-1)
 WIDTH, HEIGHT = 1280, 720
 screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("game4class")
@@ -33,6 +38,7 @@ scenes = {
     "bg":select_bg(),
     "pause":Pause(),
     "skill":Skill(),
+    "credit":Credits(),
 
     # "start":StartMenu_Test()
 }
@@ -40,6 +46,7 @@ active_scene = "start"
 
 running = True
 while running:
+    
     events = pygame.event.get()
     for event in events:
         if event.type == pygame.QUIT:

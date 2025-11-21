@@ -15,6 +15,8 @@ class GameScene:
     
 
     def __init__(self, width, height):
+        
+
         def create_hitbox(space, box_size=(70, 20), init_pos=(-200, 350), body_type=pymunk.Body.KINEMATIC):
         
             mass = 1
@@ -316,6 +318,20 @@ class GameScene:
         screen.blit(frame, (x,y))     
 
     def update(self, events ,screen):       
+        
+        keys=pygame.key.get_pressed()
+
+        if keys[pygame.K_d] and self.ball_body.position.x<580:
+            self.ball_body.position = (self.ball_body.position.x+10, self.ball_body.position.y)
+        if keys[pygame.K_a] and self.ball_body.position.x>50:
+            self.ball_body.position = (self.ball_body.position.x-10, self.ball_body.position.y)
+        if keys[pygame.K_RIGHT] and self.ball_at_body.position.x<1230:
+            self.ball_at_body.position = (self.ball_at_body.position.x+10, self.ball_at_body.position.y)
+        if keys[pygame.K_LEFT] and self.ball_at_body.position.x>720:
+            self.ball_at_body.position = (self.ball_at_body.position.x-10, self.ball_at_body.position.y)
+        
+        
+        
         for event in events:
             if event.type == pygame.KEYDOWN:
                 if event.key == pygame.K_r:
@@ -342,14 +358,17 @@ class GameScene:
                             self.box_body.velocity=(self.ball_body.velocity.x, 75)
                     
                 if event.key == pygame.K_d:
-                    self.ball_body.velocity = (125, self.ball_body.velocity.y)
-                    self.box_body_right.velocity = (125, self.box_body_right.velocity.y)
-                    self.timer = 120
+                    # self.ball_body.velocity = (125, self.ball_body.velocity.y)
+                    # self.box_body_right.velocity = (125, self.box_body_right.velocity.y)
+                    # self.ball_body.position = (self.ball_body.position.x+20, self.ball_body.position.y)
+                    # self.timer = 120
+                    a=1
 
                 if event.key == pygame.K_a:
-                    self.ball_body.velocity = (-125, self.ball_body.velocity.y)
-                    self.box_body_left.velocity = (-125, self.box_body_left.velocity.y)
-                    self.timer = -120
+                    # self.ball_body.velocity = (-125, self.ball_body.velocity.y)
+                    # self.box_body_left.velocity = (-125, self.box_body_left.velocity.y)
+                    # self.timer = -120
+                    a=1
                 #p1 move end
                 #p2 move
                 if event.key == pygame.K_UP:
@@ -366,14 +385,16 @@ class GameScene:
                             self.box_at_body.velocity=(self.ball_at_body.velocity.x, 75)
                     
                 if event.key == pygame.K_RIGHT:
-                    self.ball_at_body.velocity = (250, self.ball_at_body.velocity.y)
-                    self.box_at_body_right.velocity = (250, self.box_at_body_right.velocity.y)
-                    self.timer_at = 120
+                    # self.ball_at_body.velocity = (250, self.ball_at_body.velocity.y)
+                    # self.box_at_body_right.velocity = (250, self.box_at_body_right.velocity.y)
+                    # self.timer_at = 120
+                    a=1
 
                 if event.key == pygame.K_LEFT:
-                    self.ball_at_body.velocity = (-250, self.ball_at_body.velocity.y)
-                    self.box_at_body_left.velocity = (-250, self.box_at_body_left.velocity.y)
-                    self.timer_at = -120
+                    # self.ball_at_body.velocity = (-250, self.ball_at_body.velocity.y)
+                    # self.box_at_body_left.velocity = (-250, self.box_at_body_left.velocity.y)
+                    # self.timer_at = -120
+                    a=1
                 #p2 move end
 
                 if event.key == pygame.K_ESCAPE:
@@ -433,7 +454,7 @@ class GameScene:
                 self.ball_body2.velocity = (0, 0)
                 self.ball_body2.angular_velocity = 0
                 self.wait+=1
-                if self.wait<60:
+                if self.wait<90:
                     self.ball_body2.position = (1280-self.start_x2, self.start_y2)
                     self.ball_body2.velocity = (0, 0)
                     self.ball_body2.angular_velocity = 0
@@ -447,7 +468,7 @@ class GameScene:
                 self.ball_body2.velocity = (0, 0)
                 self.ball_body2.angular_velocity = 0
                 self.wait+=1
-                if self.wait<60:
+                if self.wait<90:
                     self.ball_body2.position = (self.start_x2, self.start_y2)
                     self.ball_body2.velocity = (0, 0)
                     self.ball_body2.angular_velocity = 0
@@ -796,8 +817,7 @@ class GameScene:
         # pygame.draw.rect(screen, (255, 0, 0), rect)       
 
         # 資訊
-        info = "R=reset"
-        img = self.font.render(info, True, (240, 240, 240))
+        img = self.font.render("R=reset", True, (240, 240, 240))
         screen.blit(img, (10, 10))
 
         # info = f"R=reset | Ball pos: ({self.ball_body.position.x:.1f}, {self.ball_body.position.y:.1f}) timer:{self.timer}"
