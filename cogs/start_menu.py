@@ -25,7 +25,7 @@ class StartMenu:
 
         
         
-        # self.credits=TextButton("credits",self.lable1,(100,100))
+        self.credits=TextButton("credits",self.lable1,(640,100))
         
         self.frog=Character("frog","images",10,(100,100))
 
@@ -74,6 +74,11 @@ class StartMenu:
             if self.exit_button.is_clicked(event): #is_clicked在ui裡
                 pygame.quit()
                 raise SystemExit
+            if self.credits.is_clicked(event) and all(x == 1 for x in self.look_press):
+                self.look_press.append(0)
+                self.sui_timer=360
+                return "credit"
+
             if event.type == pygame.KEYDOWN and event.key == pygame.K_RETURN:
                 g_var.init_choose=True
                 return "p1"
@@ -95,12 +100,12 @@ class StartMenu:
         # --- 更新按鈕狀態 ---
         self.start_button.update()
         self.exit_button.update()
-        # self.credits.update()
+
 
         # --- 畫出按鈕 ---
         self.start_button.draw(screen)
         self.exit_button.draw(screen)
-        # self.credits.draw(screen)
+        
 
         # --- 額外文字 ---
         screen.blit(self.text2, self.text2_rect)
@@ -127,6 +132,8 @@ class StartMenu:
 
                 screen.blit(self.y_sui, (0,0))
                 screen.blit(self.y_sui, (780,0))
+                self.credits.update()
+                self.credits.draw(screen)
 
 
 

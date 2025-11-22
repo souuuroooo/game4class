@@ -15,12 +15,15 @@ class Credits:
         
         
     def update(self, events,screen):
-        
+        for event in events:
+            if event.type == pygame.KEYDOWN :
+                if event.key == pygame.K_ESCAPE:
+                    return "start"
 
         return "credit"
 
     def draw(self, screen):
-        
+        screen.fill((30,30,30))
         screen.blit(self.text,(100,100))
         screen.blit(self.text2,(100,300))
 

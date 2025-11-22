@@ -105,7 +105,7 @@ class GameScene:
 
     #p1 hit box
         #box above head 
-        box_size = (80, 20)  # 寬, 高
+        box_size = (80, 10)  # 寬, 高
         mass_box = 1
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
@@ -118,7 +118,7 @@ class GameScene:
         self.box_w, self.box_h = box_size
 
         #box left  
-        box_size = (20, 120)  # 寬, 高
+        box_size = (10, 120)  # 寬, 高
         mass_box = 1
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
@@ -131,7 +131,7 @@ class GameScene:
         self.box_w_left, self.box_h_left = box_size
 
         #box right  
-        box_size = (20, 120)  # 寬, 高
+        box_size = (10, 120)  # 寬, 高
         mass_box = 1
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
@@ -145,7 +145,7 @@ class GameScene:
     #p1 hit box end
     #p2 hit box  
         #box above head 
-        box_size = (80, 20)  # 寬, 高
+        box_size = (80, 10)  # 寬, 高
         mass_box = 1
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
@@ -158,7 +158,7 @@ class GameScene:
         self.box_at_w, self.box_at_h = box_size
 
         #box left  
-        box_size = (20, 120)  # 寬, 高
+        box_size = (10, 120)  # 寬, 高
         mass_box = 1
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
@@ -171,7 +171,7 @@ class GameScene:
         self.box_at_w_left, self.box_at_h_left = box_size
 
         #box right  
-        box_size = (20, 120)  # 寬, 高
+        box_size = (10, 120)  # 寬, 高
         mass_box = 1
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
@@ -183,13 +183,12 @@ class GameScene:
         self.space.add(self.box_at_body_right, self.box_at_shape_right)
         self.box_at_w_right, self.box_at_h_right = box_size
     #p2 hit box end
-
-        
+     
         #neko hitbox
-        box_size = (300, 50)  # 寬, 高
+        box_size = (500, 10)  # 寬, 高
         mass_box = 1
         moment_box = pymunk.moment_for_box(mass_box, box_size)
-        self.neko_box_init=(-200,350)
+        self.neko_box_init=(-600,350)
         self.neko_box_body = pymunk.Body(mass_box, moment_box, body_type=pymunk.Body.KINEMATIC)  
         self.neko_box_body.position = self.neko_box_init  #中心
         self.neko_shape = pymunk.Poly.create_box(self.neko_box_body, box_size)
@@ -197,6 +196,18 @@ class GameScene:
         self.neko_shape.friction = 0.8
         self.space.add(self.neko_box_body, self.neko_shape)
         self.box_w_neko, self.box_h_neko = box_size
+
+        box_size = (10, 200)  # 寬, 高
+        mass_box = 1
+        moment_box = pymunk.moment_for_box(mass_box, box_size)
+        self.neko_box2_init=(-600,350)
+        self.neko_box2_body = pymunk.Body(mass_box, moment_box, body_type=pymunk.Body.KINEMATIC)  
+        self.neko_box2_body.position = self.neko_box2_init  #中心
+        self.neko2_shape = pymunk.Poly.create_box(self.neko_box2_body, box_size)
+        self.neko2_shape.elasticity = 20
+        self.neko2_shape.friction = 0.8
+        self.space.add(self.neko_box2_body, self.neko2_shape)
+        self.box2_w_neko, self.box2_h_neko = box_size
 
         #gob skill hitbox
         self.A = [
@@ -271,7 +282,7 @@ class GameScene:
         self.neko1=pygame.transform.scale(nekoo,(300,250))
         neko = pygame.image.load(os.path.join("cogs","material", "nekooo.png")).convert_alpha()
         nekoo = pygame.transform.flip(neko,1,0)
-        self.neko2=pygame.transform.scale(nekoo,(300,250))
+        self.neko2=pygame.transform.scale(nekoo,(500,250))
         self.neko_x=0
         self.neko_count=0
         self.vege1= pygame.image.load(os.path.join("cogs","material", "vege.png")).convert_alpha()
@@ -330,13 +341,26 @@ class GameScene:
                 self.ball_body.position = (self.ball_body.position.x+10, self.ball_body.position.y)
             if keys[pygame.K_a] and self.ball_body.position.x>50:
                 self.ball_body.position = (self.ball_body.position.x-10, self.ball_body.position.y)
-            if keys[pygame.K_w] :
-                if abs(self.ball_body.position.y - (self.floor_y + self.radius)) < 20:
-                    self.ball_body.velocity = (self.ball_body.velocity.x, 700)
-                    self.box_body.velocity=(self.ball_body.velocity.x, 700) 
-                if self.ball_body.velocity.y<100:
-                    self.ball_body.velocity = (self.ball_body.velocity.x,20)
-                    self.box_body.velocity=(self.ball_body.velocity.x, 20)     
+            if self.skill_active and g_var.who_skilled=="p1cat":
+                if keys[pygame.K_w] :
+                    if abs(self.ball_body.position.y - (self.floor_y + self.radius)) < 20 :
+                        self.ball_body.velocity = (self.ball_body.velocity.x, 700)
+                        self.box_body.velocity=(self.ball_body.velocity.x, 700) 
+                    if abs(self.ball_body.position.y - (310 + self.radius)) < 30 :
+                        self.ball_body.velocity = (self.ball_body.velocity.x, 700)
+                        self.box_body.velocity=(self.ball_body.velocity.x, 700) 
+                    if self.ball_body.velocity.y<100:
+                        self.ball_body.velocity = (self.ball_body.velocity.x,20)
+                        self.box_body.velocity=(self.ball_body.velocity.x, 20)
+                a=1
+            else:
+                if keys[pygame.K_w] :
+                    if abs(self.ball_body.position.y - (self.floor_y + self.radius)) < 20:
+                        self.ball_body.velocity = (self.ball_body.velocity.x, 700)
+                        self.box_body.velocity=(self.ball_body.velocity.x, 700) 
+                    if self.ball_body.velocity.y<100:
+                        self.ball_body.velocity = (self.ball_body.velocity.x,20)
+                        self.box_body.velocity=(self.ball_body.velocity.x, 20)     
         
 
         if self.skill_active and g_var.who_skilled=="p1pika":
@@ -346,13 +370,25 @@ class GameScene:
                 self.ball_at_body.position = (self.ball_at_body.position.x+10, self.ball_at_body.position.y)
             if keys[pygame.K_LEFT] and self.ball_at_body.position.x>720:
                 self.ball_at_body.position = (self.ball_at_body.position.x-10, self.ball_at_body.position.y)
-            if keys[pygame.K_UP] :
-                if abs(self.ball_at_body.position.y - (self.floor_y + self.radius)) < 20:
-                    self.ball_at_body.velocity = (self.ball_at_body.velocity.x, 700)
-                    self.box_at_body.velocity=(self.ball_at_body.velocity.x, 700)
-                if self.ball_at_body.velocity.y<100:
-                        self.ball_at_body.velocity = (self.ball_at_body.velocity.x,20)
-                        self.box_at_body.velocity=(self.ball_at_body.velocity.x, 20)
+            if self.skill_active and g_var.who_skilled=="p2cat":
+                if keys[pygame.K_UP] :
+                    if abs(self.ball_at_body.position.y - (self.floor_y + self.radius)) < 20:
+                        self.ball_at_body.velocity = (self.ball_at_body.velocity.x, 700)
+                        self.box_at_body.velocity=(self.ball_at_body.velocity.x, 700)
+                    if abs(self.ball_at_body.position.y - (310 + self.radius)) < 30:
+                        self.ball_at_body.velocity = (self.ball_at_body.velocity.x, 700)
+                        self.box_at_body.velocity=(self.ball_at_body.velocity.x, 700)
+                    if self.ball_at_body.velocity.y<100:
+                            self.ball_at_body.velocity = (self.ball_at_body.velocity.x,20)
+                            self.box_at_body.velocity=(self.ball_at_body.velocity.x, 20)
+            else:            
+                if keys[pygame.K_UP] :
+                    if abs(self.ball_at_body.position.y - (self.floor_y + self.radius)) < 20:
+                        self.ball_at_body.velocity = (self.ball_at_body.velocity.x, 700)
+                        self.box_at_body.velocity=(self.ball_at_body.velocity.x, 700)
+                    if self.ball_at_body.velocity.y<100:
+                            self.ball_at_body.velocity = (self.ball_at_body.velocity.x,20)
+                            self.box_at_body.velocity=(self.ball_at_body.velocity.x, 20)
         
         
         
@@ -460,10 +496,15 @@ class GameScene:
                 self.skill_active = True
                 self.skill_timer = 20  # give pika 4s to show (60fps) 
                 g_var.back_from_skill = False
-            elif g_var.who_skilled=="p1cat" or g_var.who_skilled=="p2cat":
+            elif g_var.who_skilled=="p1cat" :
                 self.skill_active = True
                 self.skill_timer = 480
-                # self.neko_box_body.position=(150,350)
+                self.ball_body.position=(100,600)
+                g_var.back_from_skill = False
+            elif g_var.who_skilled=="p2cat":
+                self.skill_active = True
+                self.skill_timer = 480
+                self.ball_at_body.position=(1180,600)
                 g_var.back_from_skill = False
             elif g_var.who_skilled=="p1gob" or g_var.who_skilled=="p2gob":
                 self.skill_active = True
@@ -496,7 +537,8 @@ class GameScene:
                 self.skill_timer -= 1
             if self.skill_timer <= 0:
                 self.skill_active = False
-                self.neko_box_body.position = self.neko_box_init                
+                self.neko_box_body.position = self.neko_box_init
+                self.neko_box2_body.position = self.neko_box2_init         
                 self.neko_x=0
                 for i in range(len(self.A)):
                     self.__dict__[f"gob_hitbox{i+1}"]["body"].position = self.gob_box_init
@@ -537,9 +579,11 @@ class GameScene:
         #neko hit box follow
         if self.skill_active==True:
             if g_var.who_skilled=="p1cat" :
-                self.neko_box_body.position=(self.neko_x+120,320)
+                self.neko_box_body.position=(self.neko_x+50,320)
+                self.neko_box2_body.position=(self.neko_x-200,200)
             if g_var.who_skilled=="p2cat" :
-                self.neko_box_body.position=(self.WIDTH-self.neko_x+120-230,320) #250magic
+                self.neko_box_body.position=(self.WIDTH-self.neko_x+20,320) #250magic
+                self.neko_box2_body.position=(self.WIDTH-self.neko_x+300,200)
 
             if g_var.who_skilled=="p1gob":               
                 for i in range(len(self.A)):
@@ -636,10 +680,14 @@ class GameScene:
             if g_var.who_skilled=="p1cat":
                 if self.neko_x<360:
                     self.neko_x+=1
-                screen.blit(self.neko_now,(self.neko_x,390)) 
+                screen.blit(self.neko_now,(self.neko_x-200,390)) #200 magic
                 # #畫hit box
                 # box_pos = self.pymunk_to_pygame(self.neko_box_body.position)
                 # rect = pygame.Rect(0, 0, self.box_w_neko , self.box_h_neko)
+                # rect.center = box_pos
+                # pygame.draw.rect(screen, (255, 0, 0), rect)
+                # box_pos = self.pymunk_to_pygame(self.neko_box2_body.position)
+                # rect = pygame.Rect(0, 0, self.box2_w_neko , self.box2_h_neko)
                 # rect.center = box_pos
                 # pygame.draw.rect(screen, (255, 0, 0), rect)
                 #wuii
@@ -659,6 +707,10 @@ class GameScene:
                 # #畫hit box
                 # box_pos = self.pymunk_to_pygame(self.neko_box_body.position)
                 # rect = pygame.Rect(0, 0, self.box_w_neko , self.box_h_neko)
+                # rect.center = box_pos
+                # pygame.draw.rect(screen, (255, 0, 0), rect)
+                # box_pos = self.pymunk_to_pygame(self.neko_box2_body.position)
+                # rect = pygame.Rect(0, 0, self.box2_w_neko , self.box2_h_neko)
                 # rect.center = box_pos
                 # pygame.draw.rect(screen, (255, 0, 0), rect)
                 #wuii
