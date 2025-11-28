@@ -302,12 +302,22 @@ class GameScene:
             img = pygame.transform.scale(img, (150,150))
             self.wuii.append(img)
 
+        self.jo_font = []
+        for i in range(10):
+            img = pygame.image.load(os.path.join("cogs","jojo_font", f"{i+1}.png")).convert_alpha()
+            img = pygame.transform.scale(img, (150,150))
+            self.jo_font.append(img)
+
         self.wuii_index = 0
         self.wuii_index_delay = 2
         self.wuii_counter = 0 
 
         #test
         self.mouse_x, self.mouse_y = 0, 0    
+
+        #skill
+        self.cast_timer_p1=600
+        self.cast_timer_p2=600
     
     def init_my_self(self):
         g_var.restart=True
@@ -326,6 +336,11 @@ class GameScene:
         self.timer_at = 0
         self.L_get_point=False
         self.R_get_point=False
+        self.neko_box_body.position = self.neko_box_init
+        self.neko_box2_body.position = self.neko_box2_init
+        self.cast_timer_p1=600
+        self.cast_timer_p2=600
+
 
     def i_want_wuii(self,screen,x,y):
         frame = self.wuii[self.wuii_index]
@@ -411,17 +426,19 @@ class GameScene:
                     return "pause"  
 
                 if self.skill_active==False:
-                    if event.key == pygame.K_g:
+                    if event.key == pygame.K_g and self.cast_timer_p1>=600:
                         g_var.skill_bg = screen.copy()  # 把當前畫面存成 Surface
                         g_var.go_to_skill="p1"
                         g_var.who_skilled=g_var.go_to_skill+g_var.get_char
+                        self.cast_timer_p1=0
                         return "skill"
 
                 if self.skill_active==False:
-                    if event.key == pygame.K_l:
+                    if event.key == pygame.K_KP5 and self.cast_timer_p2>=600:
                         g_var.skill_bg = screen.copy()  # 把當前畫面存成 Surface
                         g_var.go_to_skill="p2"
                         g_var.who_skilled=g_var.go_to_skill+g_var.get_char_2
+                        self.cast_timer_p2=0
                         return "skill"
 
                 if event.key == pygame.K_y:
@@ -490,11 +507,22 @@ class GameScene:
                     self.ball2_ground=False
                     self.L_get_point=False
                 
+        #cast count
+        if self.cast_timer_p1<=600:
+            self.cast_timer_p1+=1
+        else:
+            a=1
+        if self.cast_timer_p2<=600:
+            self.cast_timer_p2+=1
+        else:
+            a=1
+        
+        
         #啟動技能
         if g_var.back_from_skill:   #平衡性調整技能時長
             if g_var.who_skilled=="p1pika" or g_var.who_skilled=="p2pika":
                 self.skill_active = True
-                self.skill_timer = 20  # give pika 4s to show (60fps) 
+                self.skill_timer = 10  # give pika 4s to show (60fps) 
                 g_var.back_from_skill = False
             elif g_var.who_skilled=="p1cat" :
                 self.skill_active = True
@@ -508,7 +536,7 @@ class GameScene:
                 g_var.back_from_skill = False
             elif g_var.who_skilled=="p1gob" or g_var.who_skilled=="p2gob":
                 self.skill_active = True
-                self.skill_timer = 480
+                self.skill_timer = 360
                 g_var.back_from_skill = False
 
         if self.skill_active:
@@ -848,8 +876,14 @@ class GameScene:
         # pygame.draw.rect(screen, (255, 0, 0), rect)       
 
         # 資訊
-        img = self.font.render("R=reset", True, (240, 240, 240))
-        screen.blit(img, (10, 10))
+        message = self.font.render("R=reset", True, (240, 240, 240))
+        screen.blit(message, (10, 10))
+
+        message = self.font.render(f"CD:{10-int(self.cast_timer_p1/60)}", True, (240, 240, 240))
+        screen.blit(message, (self.ball_body.position.x-50,720-self.ball_body.position.y-80))
+
+        message = self.font.render(f"CD:{10-int(self.cast_timer_p2/60)}", True, (240, 240, 240))
+        screen.blit(message, (self.ball_at_body.position.x-50,720-self.ball_at_body.position.y-80))
 
         # info = f"R=reset | Ball pos: ({self.ball_body.position.x:.1f}, {self.ball_body.position.y:.1f}) timer:{self.timer}"
         # img = self.font.render(info, True, (240, 240, 240))
@@ -896,7 +930,9 @@ class GameScene:
                 overlay = pygame.Surface((self.WIDTH, self.HEIGHT), pygame.SRCALPHA)
                 overlay.fill((255, 255, 0, 100))  # 黃色透明
                 screen.blit(self.escape,self.escape_pos)
+                screen.blit(self.jo_font[self.skill_timer-1],(680,250))
                 screen.blit(overlay, (0, 0))
+
                 
             
             
