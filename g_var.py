@@ -13,3 +13,5 @@ test=1
 init_choose=False
 go_to_skill=""
 temp=2
+point=14
+who_win=""

@@ -683,6 +683,11 @@ class GameScene:
                 self.ball2_ground=True
                 self.L_get_point=True
                 g_var.use_broad=True
+
+        #結算
+        if g_var.L_point == g_var.point:
+            self.init_my_self()
+            return "win"
                 
 
         return "game"
@@ -876,7 +881,7 @@ class GameScene:
         # pygame.draw.rect(screen, (255, 0, 0), rect)       
 
         # 資訊
-        message = self.font.render("R=reset", True, (240, 240, 240))
+        message = self.font.render(f"{g_var.point},{g_var.L_point}", True, (240, 240, 240))
         screen.blit(message, (10, 10))
 
         message = self.font.render(f"CD:{10-int(self.cast_timer_p1/60)}", True, (240, 240, 240))

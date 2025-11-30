@@ -150,7 +150,7 @@ class select_bg:
                 
                 if self.go_box.collidepoint(event.pos):
                     g_var.init_choose==True
-                    return "game"
+                    return "point"
                 
         
         #hover 
