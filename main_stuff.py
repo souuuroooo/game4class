@@ -7,7 +7,7 @@ from cogs.skills import Skill
 from cogs.p1_get_char import p1_choose
 from cogs.p2_get_char import p2_choose
 from cogs.select_bg import select_bg
-from cogs.select_point import Point
+from cogs.select_point import point
 from cogs.win import victory
 
 from cogs.credits import Credits
@@ -34,10 +34,10 @@ scenes = {
     "pause":Pause(),
     "skill":Skill(),
     "credit":Credits(),
-    "point":Point(),
+    "point":point(),
     "win":victory(),
 }
-active_scene = "win"
+active_scene = "start"
 
 running = True
 while running:

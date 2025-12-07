@@ -687,8 +687,13 @@ class GameScene:
         #結算
         if g_var.L_point == g_var.point:
             self.init_my_self()
+            g_var.who_win="1"
             return "win"
-                
+        
+        if g_var.R_point == g_var.point:
+            self.init_my_self()
+            g_var.who_win="2"
+            return "win"
 
         return "game"
 

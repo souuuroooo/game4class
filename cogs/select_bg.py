@@ -149,7 +149,7 @@ class select_bg:
                 #cat的end
                 
                 if self.go_box.collidepoint(event.pos):
-                    g_var.init_choose==True
+                    g_var.init_choose=True
                     return "point"
                 
         
