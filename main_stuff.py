@@ -24,7 +24,7 @@ screen = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("game4class")
 clock = pygame.time.Clock()
 
-# 場景 #9/11A部分
+# 場景 
 scenes = { 
     "start": StartMenu(),
     "game":GameScene(WIDTH,HEIGHT),
@@ -47,13 +47,12 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    # 更新 & 場景切換
-    
+    #更新 場景切換   
     new_scene = scenes[active_scene].update(events,screen)
     if new_scene != active_scene:
         active_scene = new_scene
 
-    # 繪製
+    #繪製
     scenes[active_scene].draw(screen)
     pygame.display.flip()
     clock.tick(60)

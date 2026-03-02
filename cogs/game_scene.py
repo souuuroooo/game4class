@@ -886,8 +886,8 @@ class GameScene:
         # pygame.draw.rect(screen, (255, 0, 0), rect)       
 
         # 資訊
-        message = self.font.render(f"{g_var.point},{g_var.L_point}", True, (240, 240, 240))
-        screen.blit(message, (10, 10))
+        # message = self.font.render(f"{g_var.point},{g_var.L_point}", True, (240, 240, 240))
+        # screen.blit(message, (10, 10))
 
         message = self.font.render(f"CD:{10-int(self.cast_timer_p1/60)}", True, (240, 240, 240))
         screen.blit(message, (self.ball_body.position.x-50,720-self.ball_body.position.y-80))
