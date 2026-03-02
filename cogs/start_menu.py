@@ -119,6 +119,8 @@ class StartMenu:
         # --- 所有方塊按完之後 ---
         if all(x == 1 for x in self.look_press):
             self.sui_timer+=1
+            self.credits.update()
+            self.credits.draw(screen)
         # --- 閃爍效果 ---
             if self.sui_timer<360:
                 self.flash_timer += 0.08
@@ -132,8 +134,7 @@ class StartMenu:
 
                 screen.blit(self.y_sui, (0,0))
                 screen.blit(self.y_sui, (780,0))
-                self.credits.update()
-                self.credits.draw(screen)
+                
 
 
 

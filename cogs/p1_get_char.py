@@ -22,7 +22,7 @@ class p1_choose:
 
         self.pika_text, self.pika_text_center, self.pika_box ,self.pika_box_color = self.word_and_box("鼻孔獸", 640, 360)
         self.pika_click=False
-        self.pika_use_hover=True
+        self.pika_use_hover=True    
         self.pika_is_hover=False
         self.pika_border_color = (30,30,30)
 
