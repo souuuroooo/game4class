@@ -1,56 +1,19 @@
-bruh 
-u really think reading me can know more about the game
-well
+----made by souuurooo----
+HOW TO PLAY
+for P1:
+A walk left
+D walk left
+W jump
+G skill
+1 interaction
 
-.
+for P2:
+right arrow walk left
+left arrow walk left
+up arrow jump
+5 skill
+1 interaction
 
-.
-
-.
-
-.
-
-you're wrong
-
-that's all
-
-.
-
-.
-
-.
-
-
-.
-
-why r u still here
-
-.
-
-.
-
-.
-
-.
-
-bro scroll awy
-
-.
-
-.
-
-.
-
-.
-
-ok well i'll tell u one thing
-
-.
-
-.
-
-.
-
-.
-
-I AM NOT GAY
+in game:
+esc escape to former scene
+p pause

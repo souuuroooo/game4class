@@ -71,7 +71,7 @@ class GameScene:
         floor_segment.elasticity = 1
         self.space.add(floor_segment)    
 
-        # 小球 1 其實是哥布林跟鼻孔
+        # 小球 1 p1
         self.radius = 40
         mass = 1
         moment = pymunk.moment_for_circle(mass, 0, self.radius)
@@ -82,7 +82,7 @@ class GameScene:
         ball_shape.elasticity = 0
         self.space.add(self.ball_body, ball_shape)
 
-        #ball at
+        #ball at p2
         self.radius = 40
         mass = 1
         moment = pymunk.moment_for_circle(mass, 0, self.radius)
@@ -93,7 +93,7 @@ class GameScene:
         ball_shape.elasticity = 0
         self.space.add(self.ball_at_body, ball_shape)
 
-        # 小球 2
+        # 排球
         self.small_radius=40
         moment = pymunk.moment_for_circle(mass, 0, self.radius)
         self.ball_body2 = pymunk.Body(mass, moment)
@@ -123,7 +123,7 @@ class GameScene:
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
         self.box_body_left = pymunk.Body(mass_box, moment_box, body_type=pymunk.Body.KINEMATIC)  
-        self.box_body_left.position = (self.start_x - self.radius - 20, self.start_y )  # 初始位置在球上方
+        self.box_body_left.position = (self.start_x - self.radius - 20, self.start_y )  
         self.box_shape_left = pymunk.Poly.create_box(self.box_body_left, box_size)
         self.box_shape_left.elasticity = 2
         self.box_shape_left.friction = 0.8
@@ -136,7 +136,7 @@ class GameScene:
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
         self.box_body_right = pymunk.Body(mass_box, moment_box, body_type=pymunk.Body.KINEMATIC)  
-        self.box_body_right.position = (self.start_x + self.radius + 20, self.start_y )  # 初始位置在球上方
+        self.box_body_right.position = (self.start_x + self.radius + 20, self.start_y )  
         self.box_shape_right = pymunk.Poly.create_box(self.box_body_right, box_size)
         self.box_shape_right.elasticity = 2
         self.box_shape_right.friction = 0.8
@@ -163,7 +163,7 @@ class GameScene:
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
         self.box_at_body_left = pymunk.Body(mass_box, moment_box, body_type=pymunk.Body.KINEMATIC)  
-        self.box_at_body_left.position = (self.start_x_at - self.radius - 20, self.start_y_at )  # 初始位置在球上方
+        self.box_at_body_left.position = (self.start_x_at - self.radius - 20, self.start_y_at )  
         self.box_at_shape_left = pymunk.Poly.create_box(self.box_at_body_left, box_size)
         self.box_at_shape_left.elasticity = 2
         self.box_at_shape_left.friction = 0.8
@@ -176,7 +176,7 @@ class GameScene:
         moment_box = pymunk.moment_for_box(mass_box, box_size)
 
         self.box_at_body_right = pymunk.Body(mass_box, moment_box, body_type=pymunk.Body.KINEMATIC)  
-        self.box_at_body_right.position = (self.start_x_at + self.radius + 20, self.start_y_at )  # 初始位置在球上方
+        self.box_at_body_right.position = (self.start_x_at + self.radius + 20, self.start_y_at )  
         self.box_at_shape_right = pymunk.Poly.create_box(self.box_at_body_right, box_size)
         self.box_at_shape_right.elasticity = 2
         self.box_at_shape_right.friction = 0.8
@@ -772,11 +772,11 @@ class GameScene:
                 self.gob.draw(screen,pos[0]+100,pos[1]-100,-10)
                 self.gob.draw(screen,pos[0]+75,pos[1]-150,-10)
                 #畫hit box                
-                # for i in range(len(self.A)):
-                #     box_pos = self.pymunk_to_pygame(self.__dict__[f"gob_hitbox{i+1}"]["body"].position)
-                #     rect = pygame.Rect(0, 0, self.__dict__[f"gob_hitbox{i+1}"]["width"] , self.__dict__[f"gob_hitbox{i+1}"]["height"])
-                #     rect.center = box_pos
-                #     pygame.draw.rect(screen, (255, 0, 0), rect)
+                for i in range(len(self.A)):
+                    box_pos = self.pymunk_to_pygame(self.__dict__[f"gob_hitbox{i+1}"]["body"].position)
+                    rect = pygame.Rect(0, 0, self.__dict__[f"gob_hitbox{i+1}"]["width"] , self.__dict__[f"gob_hitbox{i+1}"]["height"])
+                    rect.center = box_pos
+                    pygame.draw.rect(screen, (255, 0, 0), rect)
 
             if g_var.who_skilled=="p2gob":
                 pos = self.pymunk_to_pygame(self.ball_at_body.position)
@@ -790,11 +790,11 @@ class GameScene:
                 self.gob.draw_flip(screen,pos[0]+100,pos[1]-100,-10)
                 self.gob.draw_flip(screen,pos[0]+75,pos[1]-150,-10)
                 #畫hit box              
-                # for i in range(len(self.A)):
-                #     box_pos = self.pymunk_to_pygame(self.__dict__[f"gob_hitbox{i+1}"]["body"].position)
-                #     rect = pygame.Rect(0, 0, self.__dict__[f"gob_hitbox{i+1}"]["width"] , self.__dict__[f"gob_hitbox{i+1}"]["height"])
-                #     rect.center = box_pos
-                #     pygame.draw.rect(screen, (255, 0, 0), rect)  
+                for i in range(len(self.A)):
+                    box_pos = self.pymunk_to_pygame(self.__dict__[f"gob_hitbox{i+1}"]["body"].position)
+                    rect = pygame.Rect(0, 0, self.__dict__[f"gob_hitbox{i+1}"]["width"] , self.__dict__[f"gob_hitbox{i+1}"]["height"])
+                    rect.center = box_pos
+                    pygame.draw.rect(screen, (255, 0, 0), rect)  
         
         #畫網子
         # pos=(self.xa-(self.widea/2),720-self.ya-(self.highta/2),self.widea,self.highta)       
