@@ -17,3 +17,9 @@ up arrow jump
 in game:
 esc escape to former scene
 p pause
+
+start_scene:
+use your mouse
+
+tip:
+try pressing the frogs??
